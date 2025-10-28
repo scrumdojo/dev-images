@@ -74,8 +74,10 @@ COPY --chown=$USER:$USER --chmod=755 sh/oh_my_posh_theme.sh $OMP_THEME
 RUN $OMP_THEME
 
 # Install AI CLI tools script
-ARG AICLI_INSTALL=/home/$USER/ai_cli_install.sh
-COPY --chown=$USER:$USER --chmod=755 sh/ai_cli_install.sh $AICLI_INSTALL
+COPY --chown=$USER:$USER --chmod=755 sh/ai_cli_install.sh /home/$USER/ai_cli_install.sh
+
+# Create SSH key for remote git host
+COPY --chown=$USER:$USER --chmod=755 sh/create_ssh_key.sh /home/$USER/create_ssh_key.sh
 
 # Entry point script
 COPY --chown=$USER:$USER --chmod=755 sh/entrypoint.sh /usr/local/bin/entrypoint.sh
