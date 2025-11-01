@@ -58,7 +58,7 @@ RUN volta install node \
  && volta install pnpm
 
 # Copy initialization scripts
-COPY --chown=$USER:$USER --chmod=755 sh/ /home/$USER/init/
+COPY --chown=$USER:$USER --chmod=755 sh/init/ /home/$USER/init/
 
 # Install oh-my-posh
 RUN /home/$USER/init/install-oh-my-posh.sh
