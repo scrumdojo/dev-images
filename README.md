@@ -16,7 +16,7 @@ Available at: `ghcr.io/scrumdojo/dev-base:v1`
 - [Node.js](https://nodejs.org) and [pnpm](https://pnpm.io) managed by [Volta](https://volta.sh)
 - [oh-my-posh](https://ohmyposh.dev)
 
-Install common AI Coding Agent CLIs: `/home/dev/ai_cli_install.sh`
+Install common AI Coding Agent CLIs in: `/home/dev/init/`
 
 ## Firebase Container
 
