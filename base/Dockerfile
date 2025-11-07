@@ -12,7 +12,9 @@ RUN apt-get update \
         gh \
         nano \
         openssh-server \
+        ripgrep \
         sudo \
+        tree \
         unzip \
         locales \
         wget \
