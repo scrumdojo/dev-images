@@ -10,6 +10,7 @@ RUN apt-get update \
         curl \
         git \
         gh \
+        jq \
         nano \
         openssh-server \
         ripgrep \
@@ -61,6 +62,9 @@ RUN volta install node \
 
 # Copy initialization scripts
 COPY --chown=$USER:$USER --chmod=755 sh/init/ /home/$USER/init/
+
+# Copy Claude Code statusline settings
+COPY --chown=$USER:$USER --chmod=755 sh/.claude/ /home/$USER/.claude/
 
 # Install oh-my-posh
 RUN /home/$USER/init/install-oh-my-posh.sh
