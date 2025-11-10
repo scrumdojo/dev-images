@@ -60,6 +60,11 @@ RUN volta install node \
  && volta install npm \
  && volta install pnpm
 
+# Workspace setup
+ENV WORKSPACE=/home/$USER/workspace
+RUN mkdir -p $WORKSPACE \
+ && pnpm config set store-dir $WORKSPACE/.pnpm-store
+
 # Copy initialization scripts
 COPY --chown=$USER:$USER --chmod=755 sh/init/ /home/$USER/init/
 

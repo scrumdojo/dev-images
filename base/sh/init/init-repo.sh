@@ -31,7 +31,7 @@ _trimmed="${GITHUB_REPO%/}"
 repo_leaf="${_trimmed##*/}"
 repo_name="${repo_leaf%.git}"
 
-target_dir="$HOME/$repo_name"
+target_dir="$WORKSPACE/$repo_name"
 
 if [[ -d "$target_dir/.git" ]]; then
     echo "[INFO] Repository already exists at: $target_dir (skipping clone)"
