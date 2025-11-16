@@ -20,8 +20,8 @@ cost_formatted=$(printf "%.2f" "$total_cost")
 # Get hostname
 host=$(hostname)
 
-# Get current directory with ~ substitution
-current_dir="$PWD"
+# Get the working directory from Claude Code session data
+current_dir=$(echo "$input" | jq -r '.workspace.current_dir // ""')
 if [[ "$current_dir" == "$HOME"* ]]; then
     current_dir="~${current_dir#$HOME}"
 fi
@@ -31,13 +31,23 @@ git_info=""
 if git rev-parse --git-dir > /dev/null 2>&1; then
     branch=$(git branch --show-current 2>/dev/null)
 
+    # Check if we're in a worktree
+    is_worktree=""
+    if git rev-parse --git-common-dir > /dev/null 2>&1; then
+        git_common_dir=$(git rev-parse --git-common-dir)
+        git_dir=$(git rev-parse --git-dir)
+        if [[ "$git_common_dir" != "$git_dir" ]]; then
+            is_worktree="🌳 "
+        fi
+    fi
+
     # Only show branch if it's not main or master
     if [[ -n "$branch" && "$branch" != "main" && "$branch" != "master" ]]; then
         # Check for dirty state
-        if ! git diff-index --quiet HEAD -- 2>/dev/null; then
-        git_info=" • 🌿 $branch ⚡• "
+        if ! git -C "$current_dir" diff-index --quiet HEAD -- 2>/dev/null; then
+            git_info=" • ${is_worktree}🌿 $branch ⚡• "
         else
-        git_info=" • 🌿 $branch • "
+            git_info=" • ${is_worktree}🌿 $branch • "
         fi
     else
         git_info=" • "
