@@ -14,3 +14,6 @@ RUN echo "$USER:x:$UID:$GID::/home/$USER:/bin/bash" >> /etc/passwd && \
 # Default to the non-root user
 USER $USER
 WORKDIR /home/$USER
+
+# Home directory setup
+COPY --chown=$UID:$GID --chmod=755 home/ /home/$USER/
