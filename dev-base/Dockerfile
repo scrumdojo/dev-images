@@ -4,6 +4,10 @@ FROM dhi.io/debian-base:trixie
 ENV LANG=C.UTF-8
 ENV LC_ALL=$LANG
 
+# Truecolor terminal support
+ENV TERM=xterm-256color
+ENV COLORTERM=truecolor
+
 # Non-root user setup
 ENV USER=dev
 ARG UID=1000
