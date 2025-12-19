@@ -1,5 +1,9 @@
 FROM dhi.io/debian-base:trixie
 
+# Set the locale
+ENV LANG=C.UTF-8
+ENV LC_ALL=$LANG
+
 # Non-root user setup
 ENV USER=dev
 ARG UID=1000
