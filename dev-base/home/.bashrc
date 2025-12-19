@@ -24,5 +24,6 @@ alias ..='cd ..'
 export EDITOR=nano
 export VISUAL=$EDITOR
 
+PATH="$HOME/.local/bin:$PATH"
 PATH="$NPM_CONFIG_PREFIX/bin:$PATH"
 PATH="$WORKSPACE/.pnpm-global/bin:$PATH"
