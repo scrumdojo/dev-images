@@ -16,3 +16,10 @@ Available at: `ghcr.io/scrumdojo/dev-node:v1`
 - [oh-my-posh](https://ohmyposh.dev) with custom Nebula Surge theme
 
 Install common AI Coding Agent CLIs in: `/home/dev/init/`
+
+## Rust Development
+
+Available at: `ghcr.io/scrumdojo/dev-rust:v1`
+
+- Based on `ghcr.io/scrumdojo/dev-node:v1`
+- [Rust](https://rust-lang.org/) development stack
