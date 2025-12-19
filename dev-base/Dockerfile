@@ -51,5 +51,12 @@ RUN echo "$USER:x:$UID:$GID::/home/$USER:/bin/bash" >> /etc/passwd && \
 USER $USER
 WORKDIR /home/$USER
 
+# Run the subsequent RUN commands in a login shell
+SHELL ["/bin/bash", "-l", "-c"]
+
 # Home directory setup
 COPY --chown=$UID:$GID --chmod=755 home/ /home/$USER/
+
+# Workspace setup
+ARG WORKSPACE=/home/$USER/workspace
+RUN mkdir -p $WORKSPACE
