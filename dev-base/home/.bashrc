@@ -25,3 +25,4 @@ export EDITOR=nano
 export VISUAL=$EDITOR
 
 PATH="$NPM_CONFIG_PREFIX/bin:$PATH"
+PATH="$WORKSPACE/.pnpm-global/bin:$PATH"

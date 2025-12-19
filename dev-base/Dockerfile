@@ -58,7 +58,7 @@ SHELL ["/bin/bash", "-l", "-c"]
 COPY --chown=$UID:$GID --chmod=755 home/ /home/$USER/
 
 # Workspace setup
-ARG WORKSPACE=/home/$USER/workspace
+ENV WORKSPACE=/home/$USER/workspace
 RUN mkdir -p $WORKSPACE
 
 # Install fnm (Fast Node Manager)
@@ -69,3 +69,11 @@ RUN fnm install --lts
 
 # Set npm global packages directory to workspace
 ENV NPM_CONFIG_PREFIX=$WORKSPACE/.npm-global
+
+# Install pnpm
+RUN curl -fsSL https://get.pnpm.io/install.sh | bash
+
+# Configure pnpm to use workspace directories
+RUN pnpm config set store-dir $WORKSPACE/.pnpm-store \
+ && pnpm config set global-dir $WORKSPACE/.pnpm-global \
+ && pnpm config set global-bin-dir $WORKSPACE/.pnpm-global/bin
