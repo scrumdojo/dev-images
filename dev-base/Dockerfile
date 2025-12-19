@@ -60,3 +60,12 @@ COPY --chown=$UID:$GID --chmod=755 home/ /home/$USER/
 # Workspace setup
 ARG WORKSPACE=/home/$USER/workspace
 RUN mkdir -p $WORKSPACE
+
+# Install fnm (Fast Node Manager)
+RUN curl -fsSL https://fnm.vercel.app/install | bash
+
+# Install Node.js LTS
+RUN fnm install --lts
+
+# Set npm global packages directory to workspace
+ENV NPM_CONFIG_PREFIX=$WORKSPACE/.npm-global

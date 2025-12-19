@@ -1,5 +1,7 @@
-# Non-interactive shell check
-[[ $- != *i* ]] && return
+# Non-interactive shell check (disabled)
+# - fnm install modifies .bashrc, so we need to allow non-interactive shells to run it
+# - AVOID any echo or interactive commands in this file!
+# [[ $- != *i* ]] && return
 
 # History
 HISTSIZE=10000
@@ -21,3 +23,5 @@ alias ..='cd ..'
 # Editor
 export EDITOR=nano
 export VISUAL=$EDITOR
+
+PATH="$NPM_CONFIG_PREFIX/bin:$PATH"
