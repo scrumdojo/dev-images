@@ -10,6 +10,8 @@ RUN apt-get update \
         curl \
         dnsutils \
         fzf \
+        gh \
+        git \
         gnupg2 \
         htop \
         iproute2 \
