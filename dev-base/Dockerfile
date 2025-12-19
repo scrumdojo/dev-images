@@ -10,6 +10,7 @@ RUN apt-get update \
         curl \
         dnsutils \
         fzf \
+        gawk \
         gh \
         git \
         gnupg2 \
@@ -56,10 +57,15 @@ SHELL ["/bin/bash", "-l", "-c"]
 
 # Home directory setup
 COPY --chown=$UID:$GID --chmod=755 home/ /home/$USER/
+RUN mkdir -p ~/.local/bin
 
 # Workspace setup
 ENV WORKSPACE=/home/$USER/workspace
 RUN mkdir -p $WORKSPACE
+
+# Install Oh My Posh
+RUN curl -s https://ohmyposh.dev/install.sh | bash -s \
+ && echo "eval $(oh-my-posh init bash --config ~/.config/oh-my-posh/nebula-surge.omp.json)" >> ~/.bashrc
 
 # Install fnm (Fast Node Manager)
 RUN curl -fsSL https://fnm.vercel.app/install | bash
