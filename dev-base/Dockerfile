@@ -1,5 +1,6 @@
 FROM dhi.io/debian-base:trixie
 
+ENV DEVCONTAINER=true
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Update package list and install packages
