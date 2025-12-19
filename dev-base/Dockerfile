@@ -1,5 +1,30 @@
 FROM dhi.io/debian-base:trixie
 
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Update package list and install packages
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+        bat \
+        curl \
+        dnsutils \
+        fzf \
+        gnupg2 \
+        htop \
+        iproute2 \
+        jq \
+        less \
+        man-db \
+        nano \
+        procps \
+        ripgrep \
+        tree \
+        unzip \
+        wget \
+        zstd \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
+
 # Set the locale
 ENV LANG=C.UTF-8
 ENV LC_ALL=$LANG
