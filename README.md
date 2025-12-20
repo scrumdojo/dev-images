@@ -28,6 +28,21 @@ Available at: `ghcr.io/scrumdojo/dev-playwright:v2`
 - Based on `ghcr.io/scrumdojo/dev-node:v2`
 - Playwight [browser system dependencies](https://playwright.dev/docs/browsers#install-system-dependencies)
 
+## Firebase Emulator ready
+
+Development container with headless JRE to run [Firebase Emulators](https://firebase.google.com/docs/emulator-suite).
+Firebase CLI itself (which contain the emulators) is not pre-installed, as it is updated frequently.
+
+Available at: `ghcr.io/scrumdojo/dev-firebase:v2`
+
+- Based on `ghcr.io/scrumdojo/dev-playwright:v2`
+- Headless Java JRE to run the Firebase Emulators
+
+### Firebase CLI
+Install [Firebase CLI](https://firebase.google.com/docs/cli/): `pnpm install -g firebase-tools`
+
+Login to Firebase from within the container: `firebase login --no-localhost`
+
 ## Rust Development
 
 Available at: `ghcr.io/scrumdojo/dev-rust:v2`
