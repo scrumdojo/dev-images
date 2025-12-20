@@ -22,6 +22,7 @@ RUN apt-get update \
         nano \
         procps \
         ripgrep \
+        sudo \
         tree \
         unzip \
         wget \
@@ -47,6 +48,11 @@ RUN echo "$USER:x:$UID:$GID::/home/$USER:/bin/bash" >> /etc/passwd && \
     echo "$USER:x:$GID:" >> /etc/group && \
     mkdir -p /home/${USER} && \
     chown -R $UID:$GID /home/${USER}
+
+# Add $USER to sudoers with no password for apt-get
+RUN pam-auth-update --force \
+ && echo "$USER ALL=(root) NOPASSWD: /usr/bin/apt-get, /usr/bin/sh -c apt-get*" > /etc/sudoers.d/$USER \
+ && chmod 0440 /etc/sudoers.d/$USER
 
 # Default to the non-root user
 USER $USER
