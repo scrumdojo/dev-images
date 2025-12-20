@@ -23,3 +23,32 @@ Available at: `ghcr.io/scrumdojo/dev-rust:v1`
 
 - Based on `ghcr.io/scrumdojo/dev-node:v1`
 - [Rust](https://rust-lang.org/) development stack
+
+## How to use
+Example compose file to create a dev container locally:
+
+```yaml
+services:
+    dev-container:
+        # one of the above images
+        image: ghcr.io/scrumdojo/dev-node:v1
+        container_name: dev-container
+        # hostname is displayed in Oh My Posh powerline
+        hostname: dev-container
+        environment:
+            - TZ=
+            - GIT_USER_NAME=
+            - GIT_USER_EMAIL=
+            - GITHUB_TOKEN=
+        command: sleep infinity
+        volumes:
+            - workspace:/home/dev/workspace
+
+volumes:
+    # workspace for your repos and worktrees
+    # npm and pnpm global packages, and pnpm store are in the workspace, too
+    workspace:
+```
+
+Inside the container, run `~/init/git.sh` to initialize `~/.gitcongig` with your user name and email,
+and login to GitHub using `gh` and provided `GITHUB_TOKEN`.
