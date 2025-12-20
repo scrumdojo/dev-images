@@ -33,6 +33,13 @@ jobs:
           push: true
           tags: ghcr.io/${{ github.repository_owner }}/dev-node:v2
 
+      - name: Build Node.js with Playwright dependencies Dev Environment
+        uses: docker/build-push-action@v4
+        with:
+          context: ./dev-playwright
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/dev-playwright:v2
+
       - name: Build Rust Dev Environment
         uses: docker/build-push-action@v4
         with:

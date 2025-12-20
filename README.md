@@ -17,6 +17,17 @@ Available at: `ghcr.io/scrumdojo/dev-node:v2`
 
 Install common AI Coding Agent CLIs in: `/home/dev/init/`
 
+## Node.js with Playwright dependencies
+
+Development container with pre-installed [Playwright](https://playwright.dev/) browser system dependencies
+Playwright itself, not any browser, are *not* pre-installed, as their versions are project specific,
+and need to be installed inside the container for each respective project.
+
+Available at: `ghcr.io/scrumdojo/dev-playwright:v2`
+
+- Based on `ghcr.io/scrumdojo/dev-node:v2`
+- Playwight [browser system dependencies](https://playwright.dev/docs/browsers#install-system-dependencies)
+
 ## Rust Development
 
 Available at: `ghcr.io/scrumdojo/dev-rust:v2`
