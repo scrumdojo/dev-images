@@ -3,6 +3,10 @@ name: Publish Image to GHCR
 on:
   workflow_dispatch:
 
+env:
+  CR: ghcr.io/${{ github.repository_owner }}
+  VERSION: v2
+
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
@@ -29,25 +33,25 @@ jobs:
         with:
           context: ./base
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/dev-node:v2
+          tags: ${{ env.CR }}/dev-node:${{ env.VERSION }}
 
       - name: Build Node.js with Playwright dependencies Dev Environment
         uses: docker/build-push-action@v4
         with:
           context: ./playwright
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/dev-playwright:v2
+          tags: ${{ env.CR }}/dev-playwright:${{ env.VERSION }}
 
       - name: Build Firebase Dev Environment
         uses: docker/build-push-action@v4
         with:
           context: ./firebase
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/dev-firebase:v2
+          tags: ${{ env.CR }}/dev-firebase:${{ env.VERSION }}
 
       - name: Build Rust Dev Environment
         uses: docker/build-push-action@v4
         with:
           context: ./rust
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/dev-rust:v2
+          tags: ${{ env.CR }}/dev-rust:${{ env.VERSION }}
