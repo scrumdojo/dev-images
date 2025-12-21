@@ -28,7 +28,8 @@ RUN apt-get update \
         wget \
         zstd \
  && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
+ && rm -rf /var/lib/apt/lists/* \
+ && ldconfig
 
 # Set the locale
 ENV LANG=C.UTF-8
