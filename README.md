@@ -11,7 +11,8 @@ Available at: `ghcr.io/scrumdojo/dev-node:v2`
 - Based on [Docker Hardened](https://www.docker.com/products/hardened-images/) Debian Base
     [`dhi.io/debian-base:trixie`](https://hub.docker.com/hardened-images/catalog/dhi/debian-base)
 - User `dev:dev` (`1000:1000`)
-- `git` and GitHub CLI (`gh`) with `sudo` limited to `apt-get`
+- OpenSSH server
+- `git` and GitHub CLI (`gh`) with `sudo` limited to `apt-get` and `service ssh` management
 - [Node.js](https://nodejs.org) managed by [fnm](https://github.com/Schniz/fnm), and [pnpm](https://pnpm.io)
 - [oh-my-posh](https://ohmyposh.dev) with custom Nebula Surge theme
 
@@ -66,7 +67,8 @@ services:
             - GIT_USER_NAME=
             - GIT_USER_EMAIL=
             - GITHUB_TOKEN=
-        command: sleep infinity
+            - SSH_START=
+            - SSH_PUBKEY=
         volumes:
             - workspace:/home/dev/workspace
 
@@ -78,3 +80,8 @@ volumes:
 
 Inside the container, run `~/init/git.sh` to initialize `~/.gitconfig` with your user name and email,
 and login to GitHub using `gh` and provided `GITHUB_TOKEN`.
+
+### SSH Access
+For `sshd` to autostart, pass `SSH_START=true` to the container.
+
+You can pass your public SSH key via `SSH_PUBKEY`, which gets added to `~/.ssh/authorized_keys`.

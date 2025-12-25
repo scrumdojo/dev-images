@@ -20,6 +20,7 @@ RUN apt-get update \
         less \
         man-db \
         nano \
+        openssh-server \
         procps \
         ripgrep \
         sudo \
@@ -30,6 +31,9 @@ RUN apt-get update \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* \
  && ldconfig
+
+# Generate SSH host keys
+RUN ssh-keygen -A
 
 # Set the locale
 ENV LANG=C.UTF-8
@@ -50,9 +54,10 @@ RUN echo "$USER:x:$UID:$GID::/home/$USER:/bin/bash" >> /etc/passwd && \
     mkdir -p /home/${USER} && \
     chown -R $UID:$GID /home/${USER}
 
-# Add $USER to sudoers with no password for apt-get
+# Add $USER to sudoers with no password for apt-get and ssh service management
 RUN pam-auth-update --force \
  && echo "$USER ALL=(root) NOPASSWD: /usr/bin/apt-get, /usr/bin/sh -c apt-get*" > /etc/sudoers.d/$USER \
+ && echo "$USER ALL=(root) NOPASSWD: /usr/sbin/service ssh*" >> /etc/sudoers.d/$USER \
  && chmod 0440 /etc/sudoers.d/$USER
 
 # Default to the non-root user
@@ -65,6 +70,12 @@ SHELL ["/bin/bash", "-l", "-c"]
 # Home directory setup
 COPY --chown=$UID:$GID --chmod=755 home/ /home/$USER/
 RUN mkdir -p ~/.local/bin
+
+# Create ~/.ssh directory
+RUN mkdir -p ~/.ssh \
+ && chmod 700 ~/.ssh \
+ && touch ~/.ssh/authorized_keys \
+ && chmod 600 ~/.ssh/authorized_keys
 
 # Workspace setup
 ENV WORKSPACE=/home/$USER/workspace
@@ -90,3 +101,7 @@ RUN curl -fsSL https://get.pnpm.io/install.sh | bash
 RUN pnpm config set store-dir $WORKSPACE/.pnpm-store \
  && pnpm config set global-dir $WORKSPACE/.pnpm-global \
  && pnpm config set global-bin-dir $WORKSPACE/.pnpm-global/bin
+
+# Entrypoint script for optional service startup
+ENTRYPOINT ["/home/dev/init/entrypoint.sh"]
+CMD ["sleep", "infinity"]
