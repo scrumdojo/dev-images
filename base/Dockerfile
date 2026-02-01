@@ -86,7 +86,8 @@ RUN curl -s https://ohmyposh.dev/install.sh | bash -s \
  && echo "eval $(oh-my-posh init bash --config ~/.config/oh-my-posh/nebula-surge.omp.json)" >> ~/.bashrc
 
 # Install fnm (Fast Node Manager)
-RUN curl -fsSL https://fnm.vercel.app/install | bash
+RUN curl -fsSL https://fnm.vercel.app/install | bash \
+ && sed -i 's/fnm env/fnm env --use-on-cd/' ~/.bashrc
 
 # Install Node.js LTS
 RUN fnm install --lts
