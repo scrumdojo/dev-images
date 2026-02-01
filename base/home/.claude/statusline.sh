@@ -24,14 +24,13 @@ if git rev-parse --git-dia > /dev/null 2>&1; then
         fi
     fi
 
-    # Only show branch if it's not main or master
-    if [[ -n "$branch" && "$branch" != "main" && "$branch" != "master" ]]; then
+    if [[ -n "$branch" ]]; then
         # Check for dirty state
         is_dirty=""
         if ! git -C "$current_dir" diff-index --quiet HEAD -- 2>/dev/null; then
-            is_dirty="⚡ "
+            is_dirty="⚡"
         fi
-        git_info="$is_worktree🌿 $branch $is_dirty• "
+        git_info="$is_worktree🌿 $branch $is_dirty"
     fi
 fi
 
