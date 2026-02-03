@@ -28,7 +28,7 @@ if git rev-parse --git-dia > /dev/null 2>&1; then
         # Check for dirty state
         is_dirty=""
         if ! git -C "$current_dir" diff-index --quiet HEAD -- 2>/dev/null; then
-            is_dirty="⚡"
+            is_dirty="🪶"
         fi
         git_info="$is_worktree🌿 $branch $is_dirty"
     fi
