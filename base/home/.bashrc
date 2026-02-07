@@ -15,6 +15,7 @@ shopt -s cdspell        # Autocorrect typos in cd
 shopt -s dirspell       # Autocorrect typos in tab completion
 
 # Aliases
+alias bat='batcat'
 alias ls='ls --color=auto'
 alias ll='ls -lah'
 alias grep='grep --color=auto'
