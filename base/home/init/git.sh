@@ -6,6 +6,11 @@ else
     echo "Set GIT_USER_NAME and GIT_USER_EMAIL to configure git user"
 fi
 
+if [ -n "${EDITOR}" ]; then
+    echo "Setting git editor to ${EDITOR}"
+    git config --global core.editor "${EDITOR}"
+fi
+
 if [ -n "${GITHUB_TOKEN}" ]; then
     gh auth login --with-token <<< "${GITHUB_TOKEN}"
     gh auth setup-git
