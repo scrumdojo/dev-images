@@ -24,6 +24,7 @@ RUN apt-get update \
         openssh-server \
         procps \
         ripgrep \
+        stow \
         sudo \
         tmux \
         tree \
@@ -85,8 +86,7 @@ ENV WORKSPACE=/home/$USER/workspace
 RUN mkdir -p $WORKSPACE
 
 # Install Oh My Posh
-RUN curl -s https://ohmyposh.dev/install.sh | bash -s \
- && echo 'eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/nebula-surge.omp.json)"' >> ~/.zshrc
+RUN curl -s https://ohmyposh.dev/install.sh | bash -s
 
 # Install fnm (Fast Node Manager)
 RUN curl -fsSL https://fnm.vercel.app/install | bash \

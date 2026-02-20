@@ -13,14 +13,6 @@ setopt CORRECT             # Autocorrect typos in commands
 
 # Aliases
 alias bat='batcat'
-alias ls='lsd'
-alias ll='lsd -lah'
-alias lt='lsd --tree'
-alias grep='grep --color=auto'
-
-# Editor
-export EDITOR=nano
-export VISUAL=$EDITOR
 
 PATH="$HOME/.local/bin:$PATH"
 PATH="$NPM_CONFIG_PREFIX/bin:$PATH"
