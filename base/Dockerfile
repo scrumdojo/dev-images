@@ -71,7 +71,7 @@ WORKDIR /home/$USER
 SHELL ["/bin/zsh", "-l", "-c"]
 
 # Home directory setup
-COPY --chown=$UID:$GID --chmod=755 home/ /home/$USER/
+COPY --chown=$UID:$GID home/ /home/$USER/
 RUN mkdir -p ~/.local/bin
 
 # Create ~/.ssh directory
