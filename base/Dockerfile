@@ -18,6 +18,7 @@ RUN apt-get update \
         iproute2 \
         jq \
         less \
+        lsd \
         man-db \
         nano \
         openssh-server \

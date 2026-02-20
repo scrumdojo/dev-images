@@ -13,8 +13,9 @@ setopt CORRECT             # Autocorrect typos in commands
 
 # Aliases
 alias bat='batcat'
-alias ls='ls --color=auto'
-alias ll='ls -lah'
+alias ls='lsd'
+alias ll='lsd -lah'
+alias lt='lsd --tree'
 alias grep='grep --color=auto'
 
 # Editor
