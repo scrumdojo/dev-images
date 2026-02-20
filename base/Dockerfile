@@ -85,6 +85,16 @@ RUN mkdir -p ~/.ssh \
 ENV WORKSPACE=/home/$USER/workspace
 RUN mkdir -p $WORKSPACE
 
+# Zsh plugins
+RUN git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git \
+        ~/.zsh/zsh-autosuggestions \
+ && git clone --depth=1 https://github.com/zsh-users/zsh-completions.git \
+        ~/.zsh/zsh-completions \
+ && git clone --depth=1 https://github.com/zsh-users/zsh-history-substring-search.git \
+        ~/.zsh/zsh-history-substring-search \
+ && git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git \
+        ~/.zsh/zsh-syntax-highlighting
+
 # Install Oh My Posh
 RUN curl -s https://ohmyposh.dev/install.sh | bash -s
 
