@@ -1,4 +1,4 @@
-FROM ghcr.io/scrumdojo/dev-node:v2
+FROM ghcr.io/scrumdojo/dev-node:v3
 
 USER root
 
@@ -46,8 +46,8 @@ ARG CMDLINE_TOOLS_BIN="$ANDROID_HOME/cmdline-tools/latest/bin"
 RUN yes | "$CMDLINE_TOOLS_BIN/sdkmanager" --licenses
 RUN "$CMDLINE_TOOLS_BIN/sdkmanager" --install "platform-tools"
 
-# Add Android SDK to PATH in .bashrc
-RUN echo "" >> ~/.bashrc \
- && echo "# Android SDK" >> ~/.bashrc \
- && echo "export ANDROID_HOME=$ANDROID_HOME" >> ~/.bashrc \
- && echo "export PATH=\$PATH:\$ANDROID_HOME/cmdline-tools/latest/bin:\$ANDROID_HOME/platform-tools" >> ~/.bashrc
+# Add Android SDK to PATH in .zshrc
+RUN echo "" >> ~/.zshrc \
+ && echo "# Android SDK" >> ~/.zshrc \
+ && echo "export ANDROID_HOME=$ANDROID_HOME" >> ~/.zshrc \
+ && echo "export PATH=\$PATH:\$ANDROID_HOME/cmdline-tools/latest/bin:\$ANDROID_HOME/platform-tools" >> ~/.zshrc

@@ -28,6 +28,7 @@ RUN apt-get update \
         tree \
         unzip \
         wget \
+        zsh \
         zstd \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* \
@@ -50,7 +51,7 @@ ARG UID=1000
 ARG GID=1000
 
 # Note: There is no useradd in the Docker hardened Debian base image
-RUN echo "$USER:x:$UID:$GID::/home/$USER:/bin/bash" >> /etc/passwd && \
+RUN echo "$USER:x:$UID:$GID::/home/$USER:/bin/zsh" >> /etc/passwd && \
     echo "$USER:x:$GID:" >> /etc/group && \
     mkdir -p /home/${USER} && \
     chown -R $UID:$GID /home/${USER}
@@ -66,7 +67,7 @@ USER $USER
 WORKDIR /home/$USER
 
 # Run the subsequent RUN commands in a login shell
-SHELL ["/bin/bash", "-l", "-c"]
+SHELL ["/bin/zsh", "-l", "-c"]
 
 # Home directory setup
 COPY --chown=$UID:$GID --chmod=755 home/ /home/$USER/
@@ -84,11 +85,11 @@ RUN mkdir -p $WORKSPACE
 
 # Install Oh My Posh
 RUN curl -s https://ohmyposh.dev/install.sh | bash -s \
- && echo "eval $(oh-my-posh init bash --config ~/.config/oh-my-posh/nebula-surge.omp.json)" >> ~/.bashrc
+ && echo 'eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/nebula-surge.omp.json)"' >> ~/.zshrc
 
 # Install fnm (Fast Node Manager)
 RUN curl -fsSL https://fnm.vercel.app/install | bash \
- && sed -i 's/fnm env/fnm env --use-on-cd/' ~/.bashrc
+ && sed -i 's/fnm env/fnm env --use-on-cd/' ~/.zshrc
 
 # Install Node.js LTS
 RUN fnm install --lts
