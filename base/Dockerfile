@@ -24,6 +24,7 @@ RUN apt-get update \
         procps \
         ripgrep \
         sudo \
+        tmux \
         tree \
         unzip \
         wget \
