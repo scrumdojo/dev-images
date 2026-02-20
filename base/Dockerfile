@@ -9,6 +9,7 @@ RUN apt-get update \
         bat \
         curl \
         dnsutils \
+        fd-find \
         fzf \
         gawk \
         gh \
@@ -73,7 +74,8 @@ SHELL ["/bin/zsh", "-l", "-c"]
 
 # Home directory setup
 COPY --chown=$UID:$GID home/ /home/$USER/
-RUN mkdir -p ~/.local/bin
+RUN mkdir -p ~/.local/bin \
+ && ln -s $(which fdfind) ~/.local/bin/fd
 
 # Create ~/.ssh directory
 RUN mkdir -p ~/.ssh \

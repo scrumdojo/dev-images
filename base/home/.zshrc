@@ -36,6 +36,9 @@ source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 bindkey "${terminfo[kcuu1]}" history-substring-search-up
 bindkey "${terminfo[kcud1]}" history-substring-search-down
 
+# fzf defaults
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git'
+
 PATH="$HOME/.local/bin:$PATH"
 PATH="$NPM_CONFIG_PREFIX/bin:$PATH"
 PATH="$WORKSPACE/.pnpm-global/bin:$PATH"
