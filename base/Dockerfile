@@ -1,4 +1,4 @@
-FROM dhi.io/debian-base:trixie
+FROM dhi.io/debian-base:trixie-dev
 
 ENV DEVCONTAINER=true
 ENV DEBIAN_FRONTEND=noninteractive
