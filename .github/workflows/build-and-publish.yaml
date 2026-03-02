@@ -55,3 +55,10 @@ jobs:
           context: ./rust
           push: true
           tags: ${{ env.CR }}/dev-rust:${{ env.VERSION }}
+
+      - name: Build Java Dev Environment
+        uses: docker/build-push-action@v4
+        with:
+          context: ./java
+          push: true
+          tags: ${{ env.CR }}/dev-java:${{ env.VERSION }}
