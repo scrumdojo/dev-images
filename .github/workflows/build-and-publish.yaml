@@ -56,9 +56,9 @@ jobs:
           push: true
           tags: ${{ env.CR }}/dev-rust:${{ env.VERSION }}
 
-      - name: Build Java Dev Environment
+      - name: Build Quizmaster Dev Environment
         uses: docker/build-push-action@v4
         with:
-          context: ./java
+          context: ./quizmaster
           push: true
-          tags: ${{ env.CR }}/dev-java:${{ env.VERSION }}
+          tags: ${{ env.CR }}/dev-quizmaster:${{ env.VERSION }}
