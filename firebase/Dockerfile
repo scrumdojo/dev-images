@@ -1,4 +1,4 @@
-FROM ghcr.io/scrumdojo/dev-playwright:v3
+FROM ghcr.io/scrumdojo/dev-playwright:v4
 
 USER root
 

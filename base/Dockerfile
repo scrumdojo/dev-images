@@ -50,8 +50,8 @@ ENV COLORTERM=truecolor
 
 # Non-root user setup
 ENV USER=dev
-ARG UID=1000
-ARG GID=1000
+ARG UID=1001
+ARG GID=1001
 
 # Note: There is no useradd in the Docker hardened Debian base image
 RUN echo "$USER:x:$UID:$GID::/home/$USER:/bin/zsh" >> /etc/passwd && \

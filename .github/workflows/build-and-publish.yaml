@@ -5,7 +5,7 @@ on:
 
 env:
   CR: ghcr.io/${{ github.repository_owner }}
-  VERSION: v3
+  VERSION: v4
 
 jobs:
   build-and-publish:
