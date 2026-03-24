@@ -1,4 +1,4 @@
-FROM ghcr.io/scrumdojo/dev-node:v3
+FROM ghcr.io/scrumdojo/dev-node:v4
 
 # Install basic native build tools and dependencies
 USER root
