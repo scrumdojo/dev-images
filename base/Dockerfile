@@ -103,23 +103,15 @@ RUN curl -s https://ohmyposh.dev/install.sh | bash -s
 # Install lazygit
 RUN ~/init/lazygit-install.sh
 
-# Install fnm (Fast Node Manager)
-RUN curl -fsSL https://fnm.vercel.app/install | bash \
- && sed -i 's/fnm env/fnm env --use-on-cd/' ~/.zshrc
-
-# Install Node.js LTS
+# Install fnm (Fast Node Manager) + Node.js LTS
+RUN ~/init/fnm-install.sh
 RUN fnm install --lts
 
 # Set npm global packages directory to workspace
 ENV NPM_CONFIG_PREFIX=$WORKSPACE/.npm-global
 
 # Install pnpm
-RUN curl -fsSL https://get.pnpm.io/install.sh | bash
-
-# Configure pnpm to use workspace directories
-RUN pnpm config set store-dir $WORKSPACE/.pnpm-store \
- && pnpm config set global-dir $WORKSPACE/.pnpm-global \
- && pnpm config set global-bin-dir $WORKSPACE/.pnpm-global/bin
+RUN ~/init/pnpm-install.sh
 
 # Entrypoint script for optional service startup
 ENTRYPOINT ["/home/dev/init/entrypoint.sh"]
