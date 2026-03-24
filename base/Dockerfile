@@ -100,6 +100,9 @@ RUN git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git \
 # Install Oh My Posh
 RUN curl -s https://ohmyposh.dev/install.sh | bash -s
 
+# Install lazygit
+RUN ~/init/lazygit-install.sh
+
 # Install fnm (Fast Node Manager)
 RUN curl -fsSL https://fnm.vercel.app/install | bash \
  && sed -i 's/fnm env/fnm env --use-on-cd/' ~/.zshrc
