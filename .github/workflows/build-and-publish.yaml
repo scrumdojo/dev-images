@@ -3,62 +3,103 @@ name: Publish Image to GHCR
 on:
   workflow_dispatch:
 
-env:
-  CR: ghcr.io/${{ github.repository_owner }}
-  VERSION: v4
+permissions:
+  contents: read
+  packages: write
+  id-token: write
 
 jobs:
-  build-and-publish:
+  config:
     runs-on: ubuntu-latest
+    outputs:
+      version: v4
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v3
+      - run: echo "Config ready"
 
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
+  dev-node:
+    needs: config
+    uses: docker/github-builder/.github/workflows/build.yml@v1
+    with:
+      context: ./base
+      platforms: linux/amd64,linux/arm64
+      output: image
+      sign: none
+      push: true
+      meta-images: ghcr.io/${{ github.repository_owner }}/dev-node
+      meta-tags: type=raw,value=${{ needs.config.outputs.version }}
+    secrets:
+      registry-auths: |
+        - registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Login to Docker Hardened Images Registry
-        uses: docker/login-action@v2
-        with:
-          registry: dhi.io
+        - registry: dhi.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build Base Dev Environment
-        uses: docker/build-push-action@v4
-        with:
-          context: ./base
-          push: true
-          tags: ${{ env.CR }}/dev-node:${{ env.VERSION }}
+  dev-playwright:
+    needs: [config, dev-node]
+    uses: docker/github-builder/.github/workflows/build.yml@v1
+    with:
+      context: ./playwright
+      platforms: linux/amd64,linux/arm64
+      output: image
+      sign: none
+      push: true
+      meta-images: ghcr.io/${{ github.repository_owner }}/dev-playwright
+      meta-tags: type=raw,value=${{ needs.config.outputs.version }}
+    secrets:
+      registry-auths: |
+        - registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Node.js with Playwright dependencies Dev Environment
-        uses: docker/build-push-action@v4
-        with:
-          context: ./playwright
-          push: true
-          tags: ${{ env.CR }}/dev-playwright:${{ env.VERSION }}
+  dev-firebase:
+    needs: [config, dev-playwright]
+    uses: docker/github-builder/.github/workflows/build.yml@v1
+    with:
+      context: ./firebase
+      platforms: linux/amd64,linux/arm64
+      output: image
+      sign: none
+      push: true
+      meta-images: ghcr.io/${{ github.repository_owner }}/dev-firebase
+      meta-tags: type=raw,value=${{ needs.config.outputs.version }}
+    secrets:
+      registry-auths: |
+        - registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Firebase Dev Environment
-        uses: docker/build-push-action@v4
-        with:
-          context: ./firebase
-          push: true
-          tags: ${{ env.CR }}/dev-firebase:${{ env.VERSION }}
+  dev-quizmaster:
+    needs: [config, dev-playwright]
+    uses: docker/github-builder/.github/workflows/build.yml@v1
+    with:
+      context: ./quizmaster
+      platforms: linux/amd64,linux/arm64
+      output: image
+      sign: none
+      push: true
+      meta-images: ghcr.io/${{ github.repository_owner }}/dev-quizmaster
+      meta-tags: type=raw,value=${{ needs.config.outputs.version }}
+    secrets:
+      registry-auths: |
+        - registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Rust Dev Environment
-        uses: docker/build-push-action@v4
-        with:
-          context: ./rust
-          push: true
-          tags: ${{ env.CR }}/dev-rust:${{ env.VERSION }}
-
-      - name: Build Quizmaster Dev Environment
-        uses: docker/build-push-action@v4
-        with:
-          context: ./quizmaster
-          push: true
-          tags: ${{ env.CR }}/dev-quizmaster:${{ env.VERSION }}
+  dev-rust:
+    needs: [config, dev-node]
+    uses: docker/github-builder/.github/workflows/build.yml@v1
+    with:
+      context: ./rust
+      platforms: linux/amd64,linux/arm64
+      output: image
+      sign: none
+      push: true
+      meta-images: ghcr.io/${{ github.repository_owner }}/dev-rust
+      meta-tags: type=raw,value=${{ needs.config.outputs.version }}
+    secrets:
+      registry-auths: |
+        - registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
