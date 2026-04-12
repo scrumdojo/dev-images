@@ -10,6 +10,9 @@ setopt HIST_SAVE_NO_DUPS
 setopt HIST_IGNORE_SPACE
 setopt SHARE_HISTORY
 
+# Prompt: user@host ~/path %
+PROMPT='%F{green}%n@%m%f %F{blue}%~%f %# '
+
 # Better defaults
 setopt AUTO_CD               # cd by typing directory name
 setopt CORRECT               # Autocorrect typos in commands
