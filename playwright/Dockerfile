@@ -2,7 +2,7 @@ FROM ghcr.io/scrumdojo/dev-node:v4.1
 
 # Install Playwright browser dependencies
 USER $USER
-RUN npx playwright install-deps \
+RUN npx playwright install-deps chromium firefox \
  && rm -rf ~/.npm/_npx/
 
 # Clean up apt cache
