@@ -19,6 +19,7 @@ RUN apt-get update \
         iproute2 \
         jq \
         less \
+        libatomic1 \
         lsd \
         man-db \
         nano \
