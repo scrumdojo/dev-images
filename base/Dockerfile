@@ -62,6 +62,7 @@ RUN echo "$USER:x:$UID:$GID::/home/$USER:/bin/zsh" >> /etc/passwd && \
 
 # Add $USER to sudoers with no password for apt-get and ssh service management
 RUN pam-auth-update --force \
+ && sed -i '/pam_limits\.so/d' /etc/pam.d/* \
  && echo "$USER ALL=(root) NOPASSWD: /usr/bin/apt-get, /usr/bin/sh -c apt-get*" > /etc/sudoers.d/$USER \
  && echo "$USER ALL=(root) NOPASSWD: /usr/sbin/service ssh*" >> /etc/sudoers.d/$USER \
  && chmod 0440 /etc/sudoers.d/$USER
