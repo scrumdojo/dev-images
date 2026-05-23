@@ -1,4 +1,4 @@
-FROM ghcr.io/scrumdojo/dev-node:v4
+FROM ghcr.io/scrumdojo/dev-node:v4.1
 
 USER root
 

@@ -29,7 +29,7 @@ This is not a complete security boundary. Treat these images as a safer default,
 
 Base development environment with [Node.js](https://nodejs.org) LTS to run all common AI Coding Agent CLIs.
 
-Available at: `ghcr.io/scrumdojo/dev-node:v4`
+Available at: `ghcr.io/scrumdojo/dev-node:v4.1`
 
 - Based on [Docker Hardened](https://www.docker.com/products/hardened-images/) Debian Base
     [`dhi.io/debian-base:trixie-dev`](https://hub.docker.com/hardened-images/catalog/dhi/debian-base)
@@ -47,9 +47,9 @@ Development container with pre-installed [Playwright](https://playwright.dev/) b
 Playwright itself, not any browser, are *not* pre-installed, as their versions are project specific,
 and need to be installed inside the container for each respective project.
 
-Available at: `ghcr.io/scrumdojo/dev-playwright:v4`
+Available at: `ghcr.io/scrumdojo/dev-playwright:v4.1`
 
-- Based on `ghcr.io/scrumdojo/dev-node:v4`
+- Based on `ghcr.io/scrumdojo/dev-node:v4.1`
 - Playwight [browser system dependencies](https://playwright.dev/docs/browsers#install-system-dependencies)
 
 ## Firebase Emulator ready
@@ -57,9 +57,9 @@ Available at: `ghcr.io/scrumdojo/dev-playwright:v4`
 Development container with headless JRE to run [Firebase Emulators](https://firebase.google.com/docs/emulator-suite).
 Firebase CLI itself (which contain the emulators) is not pre-installed, as it is updated frequently.
 
-Available at: `ghcr.io/scrumdojo/dev-firebase:v4`
+Available at: `ghcr.io/scrumdojo/dev-firebase:v4.1`
 
-- Based on `ghcr.io/scrumdojo/dev-playwright:v4`
+- Based on `ghcr.io/scrumdojo/dev-playwright:v4.1`
 - Headless Java JRE to run the Firebase Emulators
 
 ### Firebase CLI
@@ -69,9 +69,9 @@ Login to Firebase from within the container: `firebase login --no-localhost`
 
 ## Rust Development
 
-Available at: `ghcr.io/scrumdojo/dev-rust:v4`
+Available at: `ghcr.io/scrumdojo/dev-rust:v4.1`
 
-- Based on `ghcr.io/scrumdojo/dev-node:v4`
+- Based on `ghcr.io/scrumdojo/dev-node:v4.1`
 - [Rust](https://rust-lang.org/) development stack
 
 ## How to use
@@ -81,7 +81,7 @@ Example compose file to create a dev container locally:
 services:
     dev-container:
         # one of the above images
-        image: ghcr.io/scrumdojo/dev-node:v4
+        image: ghcr.io/scrumdojo/dev-node:v4.1
         container_name: dev-container
         hostname: dev-container
         environment:
