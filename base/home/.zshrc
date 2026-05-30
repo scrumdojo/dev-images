@@ -20,6 +20,7 @@ setopt NO_BEEP               # Disable terminal bell
 setopt INTERACTIVE_COMMENTS  # Allow comments in interactive shell
 
 # Completion system
+fpath=(~/.zsh/completions ~/.zsh/zsh-completions/src $fpath)
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select                     # arrow-navigable menu
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'    # case-insensitive
@@ -30,7 +31,6 @@ alias bat='batcat'
 
 # Plugins
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.zsh/zsh-completions/zsh-completions.plugin.zsh
 source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 # syntax-highlighting must be last
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
