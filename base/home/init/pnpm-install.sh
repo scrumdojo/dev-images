@@ -8,3 +8,6 @@ set -eu
 pnpm config set store-dir "$WORKSPACE/.pnpm-store"
 pnpm config set global-dir "$WORKSPACE/.pnpm-global"
 pnpm config set global-bin-dir "$WORKSPACE/.pnpm-global/bin"
+
+mkdir -p ~/.zsh/completions
+pnpm completion zsh > ~/.zsh/completions/_pnpm
