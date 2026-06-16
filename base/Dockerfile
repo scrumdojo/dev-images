@@ -1,12 +1,14 @@
-FROM dhi.io/debian-base:trixie-dev
+FROM debian:13.5
 
 ENV DEVCONTAINER=true
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Update package list and install packages
 RUN apt-get update \
+ && apt-get upgrade -y \
  && apt-get install -y --no-install-recommends \
         bat \
+        ca-certificates \
         curl \
         dnsutils \
         fd-find \
@@ -35,8 +37,7 @@ RUN apt-get update \
         zsh \
         zstd \
  && apt-get clean \
- && rm -rf /var/lib/apt/lists/* \
- && ldconfig
+ && rm -rf /var/lib/apt/lists/*
 
 # Generate SSH host keys
 RUN ssh-keygen -A
@@ -54,16 +55,12 @@ ENV USER=dev
 ARG UID=1001
 ARG GID=1001
 
-# Note: There is no useradd in the Docker hardened Debian base image
-RUN echo "$USER:x:$UID:$GID::/home/$USER:/bin/zsh" >> /etc/passwd && \
-    echo "$USER:x:$GID:" >> /etc/group && \
-    mkdir -p /home/${USER} && \
-    chown -R $UID:$GID /home/${USER}
+# Create a non-root $USER with sudo privileges and a home directory
+RUN groupadd -g $GID $USER \
+ && useradd -u $UID -g $GID -m -s /bin/zsh $USER
 
 # Add $USER to sudoers with no password for apt-get and ssh service management
-RUN pam-auth-update --force \
- && sed -i '/pam_limits\.so/d' /etc/pam.d/* \
- && echo "$USER ALL=(root) NOPASSWD: /usr/bin/apt-get, /usr/bin/sh -c apt-get*" > /etc/sudoers.d/$USER \
+RUN echo "$USER ALL=(root) NOPASSWD: /usr/bin/apt-get, /usr/bin/sh -c apt-get*" > /etc/sudoers.d/$USER \
  && echo "$USER ALL=(root) NOPASSWD: /usr/sbin/service ssh*" >> /etc/sudoers.d/$USER \
  && chmod 0440 /etc/sudoers.d/$USER
 
